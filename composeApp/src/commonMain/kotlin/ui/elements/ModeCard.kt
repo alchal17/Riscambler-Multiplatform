@@ -11,11 +11,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
+
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun ModeCard(text: String, onClick: () -> Unit) {
     Card(
         modifier = Modifier.fillMaxSize()
             .clip(shape = RoundedCornerShape(8.dp)), onClick = onClick, backgroundColor = Color.Red
-    ) { Text(text) }
+    ) {
+        Text(text)
+    }
 }
