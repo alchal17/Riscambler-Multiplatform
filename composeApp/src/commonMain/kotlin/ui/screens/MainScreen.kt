@@ -1,0 +1,37 @@
+package ui.screens
+
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Scaffold
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import riscambler_mutliplatform.composeapp.generated.resources.Res
+import riscambler_mutliplatform.composeapp.generated.resources.debug
+import riscambler_mutliplatform.composeapp.generated.resources.processor
+import riscambler_mutliplatform.composeapp.generated.resources.run
+import ui.MainBG
+import ui.elements.MainPageBody
+import ui.elements.MainTopBar
+
+
+@Composable
+fun MainScreen() {
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        backgroundColor = MainBG,
+        topBar = {
+            MainTopBar(
+                topBarOptions = listOf("File", "Edit", "View"),
+                iconButtons = listOf(
+                    Pair(Res.drawable.run) {},
+                    Pair(Res.drawable.debug) {},
+                    Pair(Res.drawable.processor) {}
+                )
+            )
+        }) { paddingValues ->
+        Box(modifier = Modifier.padding(top = paddingValues.calculateTopPadding())) {
+            MainPageBody()
+        }
+    }
+}
