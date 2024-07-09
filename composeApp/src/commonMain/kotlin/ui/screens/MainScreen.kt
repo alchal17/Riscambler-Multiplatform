@@ -13,6 +13,7 @@ import riscambler_mutliplatform.composeapp.generated.resources.run
 import ui.MainBG
 import ui.elements.MainPageBody
 import ui.elements.MainTopBar
+import ui.elements.topAppBarOptions
 
 
 @Composable
@@ -22,7 +23,7 @@ fun MainScreen() {
         backgroundColor = MainBG,
         topBar = {
             MainTopBar(
-                topBarOptions = listOf("File", "Edit", "View"),
+                topBarOptions = topAppBarOptions,
                 iconButtons = listOf(
                     Pair(Res.drawable.run) {},
                     Pair(Res.drawable.debug) {},
