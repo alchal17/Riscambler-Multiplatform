@@ -14,7 +14,7 @@ import ui.screens.MainScreen
 @Preview
 fun App() {
     MaterialTheme(colors = darkColors()) {
-        Box(modifier = Modifier.fillMaxSize().background(color = MainBG)){
+        Box(modifier = Modifier.fillMaxSize().background(color = MainBG)) {
             MainScreen()
         }
     }

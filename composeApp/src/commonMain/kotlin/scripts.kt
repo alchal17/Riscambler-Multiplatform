@@ -1,0 +1,1 @@
+expect fun toBinaryString(value: Int): String

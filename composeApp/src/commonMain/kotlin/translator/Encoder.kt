@@ -4,6 +4,7 @@ import constants.RiscVInstructions
 import constants.RiscVInstructionTypes.InstructionTypes
 import constants.funct3
 import constants.funct7
+import toBinaryString
 
 /*
 * Remove all unnecessary spaces from the code line
@@ -78,7 +79,7 @@ fun getFunct3(instructionName: String): String {
 */
 fun encodeReg(reg: String): String {
     val regDigit = reg.slice(1..<reg.length)
-    val binaryDigit = Integer.toBinaryString(regDigit.toInt()).padStart(5, '0')
+    val binaryDigit = toBinaryString(regDigit.toInt()).padStart(5, '0')
     return binaryDigit
 }
 
