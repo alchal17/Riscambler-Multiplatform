@@ -60,7 +60,6 @@ fun getOpcodeBasedOnName(instructionName: String): String {
 * Get funct7 for instructions of types R
 */
 fun getFunct7(instructionName: String): String {
-    assert(RiscVInstructions.typeR.contains(instructionName))
     return funct7[instructionName]!!
 }
 
@@ -69,8 +68,6 @@ fun getFunct7(instructionName: String): String {
 * of types R, I, S, B
 */
 fun getFunct3(instructionName: String): String {
-    assert(!RiscVInstructions.typeU.contains(instructionName))
-    assert(!RiscVInstructions.typeJ.contains(instructionName))
     return funct3[instructionName]!!
 }
 
@@ -88,7 +85,7 @@ fun encodeReg(reg: String): String {
 * I, S, B, U, J
 */
 fun encodeImm(commandType: InstructionTypes, immValue: String): List<String> {
-    var binaryNumber = Integer.toBinaryString(immValue.toInt()).padStart(12, '0')
+    var binaryNumber = toBinaryString(immValue.toInt()).padStart(12, '0')
     when (commandType) {
         InstructionTypes.I -> {
             return listOf(

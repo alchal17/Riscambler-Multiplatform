@@ -53,6 +53,9 @@ kotlin {
             implementation("cafe.adriel.voyager:voyager-transitions:$voyagerVersion")
 
         }
+        commonTest.dependencies {
+            implementation(libs.kotlin.test)
+        }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
         }
