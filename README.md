@@ -1,14 +1,34 @@
-This is a Kotlin Multiplatform project targeting Android, iOS, Desktop.
+# Riscambler IDE: A Kotlin-Based Integrated Development Environment for RISC-V Programming
 
-* `/composeApp` is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - `commonMain` is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    `iosMain` would be the right folder for such calls.
+---
 
-* `/iosApp` contains iOS applications. Even if you’re sharing your UI with Compose Multiplatform, 
-  you need this entry point for your iOS app. This is also where you should add SwiftUI code for your project.
+This project is dedicated to assist people in learning the assembly
+language based on **RISC-V** Instruction Set Architecture (ISA), made by
+<del>former</del> 2nd year students at the Ukrainian Catholic University
+during "Computer Systems Architectures" course.
 
+## Features
+// TODO
 
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
+## Installation
+// TODO
+
+## Usage
+// TODO
+
+## Acknowledgements
+// TODO
+
+## Contributors
+- [alchal17](https://github.com/alchal17)
+- [ansuzcoder](https://github.com/ansuzcoder)
+
+## TODO
+### Planned
+- Finish UI
+- Finish the remaining instructions
+- Implement the debugger and visualisation tools
+- Provide sufficient testing
+### Finished
+- Integrate the [RISC-V Translator](https://github.com/ansuzcoder/risc-translator) into the application
+- Implemented arithmetic instructions
