@@ -29,6 +29,7 @@ during "Computer Systems Architectures" course.
 - Finish the remaining instructions
 - Implement the debugger and visualisation tools
 - Provide sufficient testing
+- Update logical block of instructions to avoid using built-in `shl/shr` methods
 ### Finished
 - Integrate the [RISC-V Translator](https://github.com/ansuzcoder/risc-translator) into the application
 - Implemented arithmetic instructions
