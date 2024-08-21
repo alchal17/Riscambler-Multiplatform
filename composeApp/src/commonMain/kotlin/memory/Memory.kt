@@ -1,6 +1,7 @@
 package memory
 
-class Memory(size: Int) {
+
+class Memory(size: Int){
     private var memoryArray = Array(size) { 0u }
 
     init {

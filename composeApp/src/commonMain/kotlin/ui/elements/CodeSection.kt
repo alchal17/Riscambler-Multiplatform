@@ -8,6 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import assembly_files_logic.AssemblyFile
 import assembly_files_logic.OpenedAssemblyFiles
 import ui.MainBG
 import ui.SecondaryBG

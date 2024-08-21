@@ -1,23 +1,27 @@
 package memory
 
+import androidx.compose.runtime.mutableStateOf
+
 class Registers {
-    private var registers = Array(32) { 0 }
+    private val _registers = mutableStateOf(Array(32) { 0 })
+    val registers: Array<Int>
+        get() = _registers.value
 
     init {
-        registers.fill(0)
+        _registers.value.fill(0)
     }
 
     fun fetch(regNum: Int): Int {
-        if (regNum < 0 || regNum >= registers.size) {
+        if (regNum < 0 || regNum >= _registers.value.size) {
             throw IndexOutOfBoundsException("Invalid register: $regNum")
         }
-        return registers[regNum]
+        return _registers.value[regNum]
     }
 
     fun write(regNum: Int, value: Int) {
-        if (regNum < 0 || regNum >= registers.size) {
+        if (regNum < 0 || regNum >= _registers.value.size) {
             throw IndexOutOfBoundsException("Invalid register: $regNum")
         }
-        registers[regNum] = value
+        _registers.value[regNum] = value
     }
 }

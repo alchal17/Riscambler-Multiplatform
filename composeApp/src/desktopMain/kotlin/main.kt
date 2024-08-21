@@ -1,4 +1,5 @@
 import androidx.compose.ui.window.*
+import ui.EncoderDecoderWindow
 
 
 fun main() = application {
@@ -8,5 +9,8 @@ fun main() = application {
         state = rememberWindowState(placement = WindowPlacement.Maximized)
     ) {
         App()
+        if (EncoderDecoderWindow.isOpened.value) {
+            EncoderDecoderWindow.WindowContent()
+        }
     }
 }
