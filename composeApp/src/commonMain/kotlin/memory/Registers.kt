@@ -19,9 +19,14 @@ class Registers {
     }
 
     fun write(regNum: Int, value: Int) {
-        if (regNum < 0 || regNum >= _registers.value.size) {
-            throw IndexOutOfBoundsException("Invalid register: $regNum")
+        if (value in Int.MIN_VALUE..Int.MAX_VALUE) {
+            if (regNum < 0 || regNum >= _registers.value.size) {
+                throw IndexOutOfBoundsException("Invalid register: $regNum")
+            }
+            _registers.value[regNum] = value
+        } else {
+            throw Exception("Assigned value should be no greater than 4 bytes")
         }
-        _registers.value[regNum] = value
+
     }
 }

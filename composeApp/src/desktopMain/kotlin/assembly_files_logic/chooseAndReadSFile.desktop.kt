@@ -5,7 +5,7 @@ import javax.swing.filechooser.FileNameExtensionFilter
 
 actual fun chooseAndReadSFile(): AssemblyFile? {
     val fileChooser = JFileChooser()
-    fileChooser.fileFilter = FileNameExtensionFilter("Assembly Files", "s")
+    fileChooser.fileFilter = FileNameExtensionFilter("Assembly Files", "rsv")
 
     val result = fileChooser.showOpenDialog(null)
     if (result == JFileChooser.APPROVE_OPTION) {
