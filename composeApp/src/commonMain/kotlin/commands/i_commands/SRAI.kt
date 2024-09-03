@@ -1,6 +1,6 @@
 package commands.i_commands
 
-import data_converter.convertToDecimal
+import processing_tools.convertToDecimal
 import memory.Registers
 
 // shift right arithmetical immediate: write rs1 >> shamt to rd

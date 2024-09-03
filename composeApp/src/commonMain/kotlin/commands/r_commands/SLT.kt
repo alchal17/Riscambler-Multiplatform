@@ -1,6 +1,6 @@
 package commands.r_commands
 
-import data_converter.convertToDecimal
+import processing_tools.convertToDecimal
 import memory.Registers
 
 // set value of reg rd to 1 if reg value of rs1 is less than reg value of rs2

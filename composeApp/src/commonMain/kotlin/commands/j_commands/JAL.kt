@@ -1,6 +1,6 @@
 package commands.j_commands
 
-import data_converter.convertToDecimal
+import processing_tools.convertToDecimal
 import memory.Registers
 
 fun JAL(pc: Int, regs: Registers, operands: Map<String, String>): Int {

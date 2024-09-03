@@ -33,4 +33,25 @@ object RiscVInstructions {
     val typeJ = setOf(
         "JAL"
     )
+
+    val typePseudo = setOf(
+        "LI",
+        "LA",
+        "MV",
+        "NOT",
+        "NEG",
+        "BGT",
+        "BLE",
+        "BGTU",
+        "BLEU",
+        "BEQZ",
+        "BNEZ",
+        "BGEZ",
+        "BLEZ",
+        "BGTZ",
+        "J",
+        "CALL",
+        "RET",
+        "NOP"
+    )
 }

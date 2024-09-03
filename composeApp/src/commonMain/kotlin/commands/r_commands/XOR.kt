@@ -1,6 +1,6 @@
 package commands.r_commands
 
-import data_converter.convertToDecimal
+import processing_tools.convertToDecimal
 import memory.Registers
 
 // perform rs1 ^ rs2

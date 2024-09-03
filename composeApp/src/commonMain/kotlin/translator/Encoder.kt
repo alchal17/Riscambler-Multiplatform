@@ -1,6 +1,6 @@
 package translator
 
-import data_converter.convertToBinary
+import processing_tools.convertToBinary
 import constants.*
 
 import constants.RiscVInstructionTypes.InstructionTypes
@@ -13,13 +13,6 @@ import constants.RiscVInstructionTypes.JTypeInstruction
 
 
 class Encoder {
-    /*
-    * Remove all unnecessary spaces from the code line
-    */
-    fun trimLine(codeLine: String): String {
-        return codeLine.replace(Regex("\\s+"), " ").trim()
-    }
-
     /*
     * Split the code line and retrieve the instruction name and its operands
     */
