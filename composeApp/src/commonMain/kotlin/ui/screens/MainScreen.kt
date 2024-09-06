@@ -11,8 +11,6 @@ import riscambler_mutliplatform.composeapp.generated.resources.Res
 import riscambler_mutliplatform.composeapp.generated.resources.debug
 import riscambler_mutliplatform.composeapp.generated.resources.processor
 import riscambler_mutliplatform.composeapp.generated.resources.run
-import translator.Decoder
-import translator.Encoder
 import ui.MainBG
 import ui.elements.MainPageBody
 import ui.elements.MainTopBar
@@ -31,7 +29,6 @@ fun MainScreen() {
                     Pair(Res.drawable.run) {
                         //Deal with user's code on button click here
                         OpenedAssemblyFiles.currentFileContent.lines().filter { it.isNotBlank() }.forEach { codeLine ->
-
                         }
                     },
                     Pair(Res.drawable.debug) {},

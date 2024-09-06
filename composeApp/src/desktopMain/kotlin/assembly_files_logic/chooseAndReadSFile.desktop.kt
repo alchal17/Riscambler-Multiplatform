@@ -10,6 +10,7 @@ actual fun chooseAndReadSFile(): AssemblyFile? {
     val result = fileChooser.showOpenDialog(null)
     if (result == JFileChooser.APPROVE_OPTION) {
         val selectedFile = fileChooser.selectedFile
+        OpenedAssemblyFiles.changeCurrentFileContent(selectedFile.readText())
         return AssemblyFile(
             fileName = selectedFile.name,
             filePath = selectedFile.absolutePath,
@@ -17,5 +18,4 @@ actual fun chooseAndReadSFile(): AssemblyFile? {
         )
     }
     return null
-
 }
