@@ -2,14 +2,14 @@ package memory
 
 import androidx.compose.runtime.mutableStateOf
 
-class Registers {
+object Registers {
     private val _registers = mutableStateOf(Array(32) { 0 })
     val registers: Array<Int>
         get() = _registers.value
 
-    init {
-        _registers.value.fill(0)
-    }
+//    init {
+//        _registers.value.fill(0)
+//    }
 
     fun fetch(regNum: Int): Int {
         if (regNum < 0 || regNum >= _registers.value.size) {

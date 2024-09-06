@@ -19,7 +19,6 @@ fun MainPageBody() {
     var terminalValue by remember { mutableStateOf("") }
 
     val files = OpenedAssemblyFiles.files
-    val register = Registers()
 
     Row(modifier = Modifier.fillMaxSize()) {
         Spacer(modifier = Modifier.fillMaxHeight().width(2.dp).background(color = Color.Black))
@@ -32,7 +31,7 @@ fun MainPageBody() {
                 Box(modifier = Modifier.weight(3f)) {
                     Row(modifier = Modifier.fillMaxSize()) {
                         Box(modifier = Modifier.weight(3f)) { CodeSection() }
-                        Box(modifier = Modifier.weight(1f)) { RegisterSection(register.registers) }
+                        Box(modifier = Modifier.weight(1f)) { RegisterSection() }
                     }
                 }
                 Box(modifier = Modifier.weight(1f)) {

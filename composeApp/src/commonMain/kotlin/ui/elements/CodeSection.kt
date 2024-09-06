@@ -8,7 +8,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import assembly_files_logic.AssemblyFile
 import assembly_files_logic.OpenedAssemblyFiles
 import ui.MainBG
 import ui.SecondaryBG
@@ -19,7 +18,7 @@ import ui.textFieldStyles.getMainTextFieldColors
 fun CodeSection() {
     val fontSize = 20.sp
     var currentFile by remember { mutableStateOf(OpenedAssemblyFiles.files.last()) }
-    var currentFileContent by remember { mutableStateOf(currentFile.fileContent) }
+//    var currentFileContent by remember { mutableStateOf(currentFile.fileContent) }
     Column(modifier = Modifier.fillMaxSize().background(color = SecondaryBG)) {
         Row(
             modifier = Modifier.fillMaxWidth().background(color = MainBG),
@@ -30,24 +29,28 @@ fun CodeSection() {
                     file = file,
                     onClick = {
                         currentFile = file
-                        currentFileContent = file.fileContent
+//                        currentFileContent = file.fileContent
+                        OpenedAssemblyFiles.changeCurrentFileContent(file.fileContent)
                     },
                     bgColor = if (currentFile == file) SecondaryBG else SecondaryBG.copy(alpha = 0.5f),
                     onCrossClick = {
                         OpenedAssemblyFiles.removeFile(file)
                         if (currentFile == file && OpenedAssemblyFiles.files.isNotEmpty()) {
                             currentFile = OpenedAssemblyFiles.files[0]
-                            currentFileContent = currentFile.fileContent
+//                            currentFileContent = currentFile.fileContent
+                            OpenedAssemblyFiles.changeCurrentFileContent(file.fileContent)
                         }
                     }
                 )
             }
         }
         TextField(
-            value = currentFileContent,
+//            value = currentFileContent,
+            value = OpenedAssemblyFiles.currentFileContent,
             onValueChange = {
                 currentFile.fileContent = it
-                currentFileContent = it
+//                currentFileContent = it
+                OpenedAssemblyFiles.changeCurrentFileContent(it)
                 saveFile(currentFile.filePath, currentFile.fileContent)
             },
             modifier = Modifier.fillMaxSize(),

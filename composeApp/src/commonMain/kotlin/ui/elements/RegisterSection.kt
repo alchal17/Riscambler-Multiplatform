@@ -10,10 +10,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastForEachIndexed
+import memory.Registers
 import ui.SecondaryBG
 
 @Composable
-fun RegisterSection(registers: Array<Int>) {
+fun RegisterSection() {
+    val registers = Registers.registers
     Row(
         modifier = Modifier.fillMaxSize().padding(3.dp).clip(shape = RoundedCornerShape(5.dp))
             .background(color = SecondaryBG)
