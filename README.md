@@ -8,7 +8,9 @@ language based on **RISC-V** Instruction Set Architecture (ISA), made by
 during "Computer Systems Architectures" course.
 
 ## Features
-// TODO
+- RV32I ISA support
+- Tools for running and debugging assembly code
+- process visualization
 
 ## Installation
 // TODO
@@ -26,10 +28,11 @@ during "Computer Systems Architectures" course.
 ## TODO
 ### Planned
 - Finish UI
-- Finish the remaining instructions
 - Implement the debugger and visualisation tools
 - Provide sufficient testing
 - Update logical block of instructions to avoid using built-in `shl/shr` methods
+- Finish runner to execute written code
 ### Finished
 - Integrate the [RISC-V Translator](https://github.com/ansuzcoder/risc-translator) into the application
 - Implemented arithmetic instructions
+- Finish the remaining instructions
