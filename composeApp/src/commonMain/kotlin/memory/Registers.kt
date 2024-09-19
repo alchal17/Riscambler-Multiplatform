@@ -7,10 +7,6 @@ object Registers {
     val registers: Array<Int>
         get() = _registers.value
 
-//    init {
-//        _registers.value.fill(0)
-//    }
-
     fun fetch(regNum: Int): Int {
         if (regNum < 0 || regNum >= _registers.value.size) {
             throw IndexOutOfBoundsException("Invalid register: $regNum")
@@ -23,10 +19,13 @@ object Registers {
             if (regNum < 0 || regNum >= _registers.value.size) {
                 throw IndexOutOfBoundsException("Invalid register: $regNum")
             }
-            _registers.value[regNum] = value
+
+            // Create a new array and update the state
+            val newRegisters = _registers.value.copyOf() // Copy the current array
+            newRegisters[regNum] = value // Modify the new array
+            _registers.value = newRegisters // Assign new array to trigger recomposition
         } else {
             throw Exception("Assigned value should be no greater than 4 bytes")
         }
-
     }
 }

@@ -28,7 +28,7 @@ fun RegisterSection() {
             }
         }
         Column(modifier = Modifier.weight(1f).fillMaxHeight()) {
-            registers.take(registers.size / 2).fastForEachIndexed { index, value ->
+            registers.sliceArray(registers.size / 2 until  registers.size).forEachIndexed { index, value ->
                 Box(modifier = Modifier.weight(1f), contentAlignment = Alignment.Center) {
                     Text("x${index + registers.size / 2}: $value")
                 }

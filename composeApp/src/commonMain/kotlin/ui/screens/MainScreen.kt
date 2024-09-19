@@ -9,14 +9,13 @@ import androidx.compose.ui.Modifier
 import assembly_files_logic.OpenedAssemblyFiles
 import memory.Memory
 import memory.Registers
+import memory.Registers.registers
 import processing_tools.*
 import riscambler_mutliplatform.composeapp.generated.resources.Res
 import riscambler_mutliplatform.composeapp.generated.resources.debug
 import riscambler_mutliplatform.composeapp.generated.resources.processor
 import riscambler_mutliplatform.composeapp.generated.resources.run
-import translator.Decoder
 import translator.Encoder
-import translator.decodeInstruction
 import translator.encodeCodeLine
 import ui.MainBG
 import ui.elements.MainPageBody
@@ -78,6 +77,10 @@ fun MainScreen() {
                             //val decodedInstruction = decodeInstruction(instruction)
                             processInstruction(instruction, memory, regs, pc)
                             pc += 4
+                        }
+                        //Check if UI refreshes after writing a new data to register
+                        for (i in 0..<registers.size / 2) {
+                            Registers.write(i, i)
                         }
                     },
                     Pair(Res.drawable.debug) {},
