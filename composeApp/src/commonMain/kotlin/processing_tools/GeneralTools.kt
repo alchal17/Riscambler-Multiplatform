@@ -3,7 +3,9 @@ package processing_tools
 import constants.*
 import memory.Memory
 import memory.Registers
-import translator.DecodedInstruction
+import translator.Decoder
+
+val decoder = Decoder()
 
 /*
 * Remove all unnecessary spaces from the code line
@@ -112,9 +114,12 @@ fun splitTextSection(dataMap: List<String>): Map<String, List<String>> {
 /*
 * Accept instruction name and process it by calling the corresponding implementation
 */
-fun processInstruction(instruction: DecodedInstruction, memory: Memory, regs: Registers, pc: Int) {
-    val instructionName = instruction.instructionName
-    val operands = instruction.operands
+fun processInstruction(instruction: String, memory: Memory, regs: Registers, pc: Int) {
+    val opcode = decoder.retrieveOpcode(instruction)
+    val functs = decoder.retrieveFuncts(instruction)
+
+    val instructionName = decoder.retrieveInstructionName(opcode, functs)
+    val operands = decoder.retrieveOperands(instruction)
 
     if (instructionName in RiscVInstructions.typeR) {
         instructionsTypeR[instructionName]?.invoke(regs, operands)

@@ -54,6 +54,7 @@ fun MainScreen() {
                         val encoder = Encoder()
                         // write .text to memory
                         val textLayout = mutableMapOf<String, Int>()
+                        var codeEnd = 0
                         for ((key, value) in splitTextSection) {
                             for (instruction in value) {
                                 val components = encoder.splitIntoComponents(instruction)
@@ -63,15 +64,20 @@ fun MainScreen() {
                             }
                             val currentTextPointer = memory.getTextPointer()
                             textLayout[key] = currentTextPointer
+                            codeEnd = currentTextPointer
                         }
 
-                        // memory.showTextContent()
+                        memory.showTextContent()
 
-                        val pc = 0
+                        var pc = 0
                         while (true) {
                             val instruction = memory.fetchInstruction(pc)
-                            val decodedInstruction = decodeInstruction(instruction)
-                            processInstruction(decodedInstruction, memory, regs, pc)
+                            if (pc >= codeEnd) {
+                                break
+                            }
+                            //val decodedInstruction = decodeInstruction(instruction)
+                            processInstruction(instruction, memory, regs, pc)
+                            pc += 4
                         }
                     },
                     Pair(Res.drawable.debug) {},
