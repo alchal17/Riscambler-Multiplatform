@@ -1,5 +1,10 @@
 package processing_tools
 
+import constants.*
+import memory.Memory
+import memory.Registers
+import translator.DecodedInstruction
+
 /*
 * Remove all unnecessary spaces from the code line
 */
@@ -8,7 +13,7 @@ fun trimLine(codeLine: String): String {
 }
 
 /*
-* Accept whole user code and split it into sections
+* accept whole user code and split it into sections
 */
 fun splitCodeInSections(userCode: List<String>): Map<String, List<String>> {
     val sections = mutableMapOf<String, MutableList<String>>()
@@ -42,6 +47,10 @@ fun splitCodeInSections(userCode: List<String>): Map<String, List<String>> {
     return sections.mapValues { it.value.toList() }
 }
 
+/*
+* split data segment into map where key is variable name
+* value is type and variable value
+*/
 fun splitDataSection(dataMap: List<String>): Map<String, Map<String, String>> {
     val updatedDataSection = mutableMapOf<String, Map<String, String>>();
 
@@ -65,4 +74,68 @@ fun splitDataSection(dataMap: List<String>): Map<String, Map<String, String>> {
         )
     }
     return updatedDataSection
+}
+
+                        /*
+* split text segment into map where key is function name, value is list of instructions
+*/
+fun splitTextSection(dataMap: List<String>): Map<String, List<String>> {
+    val updatedTextSection = mutableMapOf<String, MutableList<String>>()
+
+    var functionName = ""
+    var instructions = mutableListOf<String>()
+
+    for (el in dataMap) {
+        if (el.contains(":")) {
+            // If there's already a function being processed, add it to the map
+            if (functionName.isNotEmpty()) {
+                updatedTextSection[functionName] = instructions
+            }
+
+            // Set new function name and reset instructions
+            functionName = el.trim().substringBefore(":")
+            instructions = mutableListOf()
+        } else {
+            // Add instructions to the current function
+            instructions.add(el.trim())
+        }
+    }
+
+    // Add the last function and its instructions to the map
+    if (functionName.isNotEmpty()) {
+        updatedTextSection[functionName] = instructions
+    }
+
+    return updatedTextSection
+}
+
+/*
+* Accept instruction name and process it by calling the corresponding implementation
+*/
+fun processInstruction(instruction: DecodedInstruction, memory: Memory, regs: Registers, pc: Int) {
+    val instructionName = instruction.instructionName
+    val operands = instruction.operands
+
+    if (instructionName in RiscVInstructions.typeR) {
+        instructionsTypeR[instructionName]?.invoke(regs, operands)
+    } else if (instructionName in RiscVInstructions.arithmeticTypeI) {
+        instructionsArithmeticTypeI[instructionName]?.invoke(regs, operands)
+    } else if (instructionName in RiscVInstructions.loadTypeI) {
+        instructionsLoadTypeI[instructionName]?.invoke(memory, regs, operands)
+    } else if (instructionName in RiscVInstructions.jalrTypeI) {
+        instructionsJalrTypeI[instructionName]?.invoke(pc, regs, operands)
+    } else if (instructionName in RiscVInstructions.typeS) {
+        instructionsTypeS[instructionName]?.invoke(memory, regs, operands)
+    } else if (instructionName in RiscVInstructions.typeB) {
+        instructionsTypeB[instructionName]?.invoke(pc, regs, operands)
+    } else if (instructionName in RiscVInstructions.typeU) {
+        when (instructionName) {
+            "AUIPC" -> instructionsTypeU_AUIPC[instructionName]?.invoke(regs, operands, pc)
+            "LUI" -> instructionsTypeU_LUI[instructionName]?.invoke(regs, operands)
+        }
+    } else if (instructionName in RiscVInstructions.typeJ) {
+        instructionsTypeJ[instructionName]?.invoke(pc, regs, operands)
+    } else {
+        throw Exception("UCmd: $instructionName")
+    }
 }

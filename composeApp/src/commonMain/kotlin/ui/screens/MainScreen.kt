@@ -7,12 +7,17 @@ import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import assembly_files_logic.OpenedAssemblyFiles
-import processing_tools.splitCodeInSections
-import processing_tools.splitDataSection
+import memory.Memory
+import memory.Registers
+import processing_tools.*
 import riscambler_mutliplatform.composeapp.generated.resources.Res
 import riscambler_mutliplatform.composeapp.generated.resources.debug
 import riscambler_mutliplatform.composeapp.generated.resources.processor
 import riscambler_mutliplatform.composeapp.generated.resources.run
+import translator.Decoder
+import translator.Encoder
+import translator.decodeInstruction
+import translator.encodeCodeLine
 import ui.MainBG
 import ui.elements.MainPageBody
 import ui.elements.MainTopBar
@@ -21,6 +26,9 @@ import ui.elements.topAppBarOptions
 
 @Composable
 fun MainScreen() {
+    val memory = Memory(1024, 1024)
+    val regs = Registers
+
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         backgroundColor = MainBG,
@@ -37,6 +45,34 @@ fun MainScreen() {
                         val dataSection = sectionedCode[".data:"]!!
                         val splitDataSection = splitDataSection(dataSection)
                         println(splitDataSection)
+
+                        val textSection = sectionedCode[".text:"]!!
+                        val splitTextSection = splitTextSection(textSection)
+                        println(splitTextSection)
+
+
+                        val encoder = Encoder()
+                        // write .text to memory
+                        val textLayout = mutableMapOf<String, Int>()
+                        for ((key, value) in splitTextSection) {
+                            for (instruction in value) {
+                                val components = encoder.splitIntoComponents(instruction)
+                                val encodedInstruction = encodeCodeLine(components)
+                                val uintInstruction = convertToDecimal(encodedInstruction).toUInt()
+                                memory.writeInstruction(uintInstruction)
+                            }
+                            val currentTextPointer = memory.getTextPointer()
+                            textLayout[key] = currentTextPointer
+                        }
+
+                        // memory.showTextContent()
+
+                        val pc = 0
+                        while (true) {
+                            val instruction = memory.fetchInstruction(pc)
+                            val decodedInstruction = decodeInstruction(instruction)
+                            processInstruction(decodedInstruction, memory, regs, pc)
+                        }
                     },
                     Pair(Res.drawable.debug) {},
                     Pair(Res.drawable.processor) {}

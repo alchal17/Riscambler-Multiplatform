@@ -1,6 +1,7 @@
 package translator
 
 import constants.*
+import processing_tools.convertToBinary
 
 class Decoder {
     /*
@@ -38,7 +39,7 @@ class Decoder {
             }
             RiscVInstructionTypes.InstructionTypes.U -> { }
             RiscVInstructionTypes.InstructionTypes.J -> { }
-            null -> throw Exception("UCmd")
+            null -> throw Exception("UCmd with opcode $opcode")
         }
 
         return functs
@@ -174,4 +175,18 @@ data class DecodedInstruction(
     override fun toString(): String {
         return "{Name: [$instructionName], Operands: [$operands]}"
     }
+}
+
+fun decodeInstruction(instruction: UInt): DecodedInstruction {
+    val decoder = Decoder()
+    val binaryInstruction = convertToBinary(instruction.toString())
+    val paddedBinaryInstruction = binaryInstruction.padStart(32, '0')
+
+    val opcode = decoder.retrieveOpcode(paddedBinaryInstruction)
+    val functs = decoder.retrieveFuncts(paddedBinaryInstruction)
+
+    val instructionName = decoder.retrieveInstructionName(opcode, functs)
+    val operands = decoder.retrieveOperands(paddedBinaryInstruction)
+
+    return DecodedInstruction(instructionName, operands)
 }

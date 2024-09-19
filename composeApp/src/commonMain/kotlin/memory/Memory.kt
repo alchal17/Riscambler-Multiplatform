@@ -44,4 +44,15 @@ class Memory(totalSize: Int, textSize: Int) {
     fun fetchData(position: Int): Byte {
         return memory[position]
     }
+
+    fun getTextPointer(): Int {
+        return textPointer
+    }
+
+    fun showTextContent() {
+        var pointer = 0
+        for (el in text) {
+            println("Address " + pointer + ": " + text[pointer++])
+        }
+    }
 }

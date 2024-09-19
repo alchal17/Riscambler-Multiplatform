@@ -10,6 +10,7 @@ import constants.RiscVInstructionTypes.STypeInstruction
 import constants.RiscVInstructionTypes.BTypeInstruction
 import constants.RiscVInstructionTypes.UTypeInstruction
 import constants.RiscVInstructionTypes.JTypeInstruction
+import constants.RiscVInstructions
 
 
 class Encoder {
@@ -28,7 +29,7 @@ class Encoder {
             tidyOperands.add(operand.replace(",", ""))
         }
 
-        return Pair(instructionName, tidyOperands)
+        return Pair(instructionName.uppercase(), tidyOperands)
     }
 
     /*
@@ -233,7 +234,12 @@ class InstructionBuilder {
 
 fun encodeCodeLine(instructionComponents: Pair<String, List<String>>): String {
     val encoder = Encoder()
+//    val piHandler = PIHandler()
     val instructionBuilder = InstructionBuilder()
+
+//    if (instructionComponents.first in RiscVInstructions.typePseudo) {
+//
+//    }
 
     val opcode = encoder.getOpcodeBasedOnName(instructionComponents.first)
     val commandType = RiscVOpCodes[opcode]
