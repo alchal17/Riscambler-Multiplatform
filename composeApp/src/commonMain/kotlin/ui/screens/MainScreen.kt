@@ -78,10 +78,6 @@ fun MainScreen() {
                             processInstruction(instruction, memory, regs, pc)
                             pc += 4
                         }
-                        //Check if UI refreshes after writing a new data to register
-                        for (i in 0..<registers.size / 2) {
-                            Registers.write(i, i)
-                        }
                     },
                     Pair(Res.drawable.debug) {},
                     Pair(Res.drawable.processor) {}

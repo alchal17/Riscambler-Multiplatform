@@ -120,27 +120,38 @@ fun processInstruction(instruction: String, memory: Memory, regs: Registers, pc:
 
     val instructionName = decoder.retrieveInstructionName(opcode, functs)
     val operands = decoder.retrieveOperands(instruction)
+    val instructionNameLowerCase = instructionName.lowercase()
 
-    if (instructionName in RiscVInstructions.typeR) {
-        instructionsTypeR[instructionName]?.invoke(regs, operands)
-    } else if (instructionName in RiscVInstructions.arithmeticTypeI) {
-        instructionsArithmeticTypeI[instructionName]?.invoke(regs, operands)
-    } else if (instructionName in RiscVInstructions.loadTypeI) {
-        instructionsLoadTypeI[instructionName]?.invoke(memory, regs, operands)
-    } else if (instructionName in RiscVInstructions.jalrTypeI) {
-        instructionsJalrTypeI[instructionName]?.invoke(pc, regs, operands)
-    } else if (instructionName in RiscVInstructions.typeS) {
-        instructionsTypeS[instructionName]?.invoke(memory, regs, operands)
-    } else if (instructionName in RiscVInstructions.typeB) {
-        instructionsTypeB[instructionName]?.invoke(pc, regs, operands)
-    } else if (instructionName in RiscVInstructions.typeU) {
-        when (instructionName) {
-            "AUIPC" -> instructionsTypeU_AUIPC[instructionName]?.invoke(regs, operands, pc)
-            "LUI" -> instructionsTypeU_LUI[instructionName]?.invoke(regs, operands)
+    when (instructionName) {
+        in RiscVInstructions.typeR -> {
+//            instructionsTypeR[instructionNameLowerCase]?.invoke(regs, operands)
         }
-    } else if (instructionName in RiscVInstructions.typeJ) {
-        instructionsTypeJ[instructionName]?.invoke(pc, regs, operands)
-    } else {
-        throw Exception("UCmd: $instructionName")
+        in RiscVInstructions.arithmeticTypeI -> {
+            instructionsArithmeticTypeI[instructionNameLowerCase]?.invoke(regs, operands)
+        }
+        in RiscVInstructions.loadTypeI -> {
+            instructionsLoadTypeI[instructionNameLowerCase]?.invoke(memory, regs, operands)
+        }
+        in RiscVInstructions.jalrTypeI -> {
+            instructionsJalrTypeI[instructionNameLowerCase]?.invoke(pc, regs, operands)
+        }
+        in RiscVInstructions.typeS -> {
+            instructionsTypeS[instructionNameLowerCase]?.invoke(memory, regs, operands)
+        }
+        in RiscVInstructions.typeB -> {
+            instructionsTypeB[instructionNameLowerCase]?.invoke(pc, regs, operands)
+        }
+        in RiscVInstructions.typeU -> {
+            when (instructionName) {
+                "AUIPC" -> instructionsTypeU_AUIPC[instructionNameLowerCase]?.invoke(regs, operands, pc)
+                "LUI" -> instructionsTypeU_LUI[instructionNameLowerCase]?.invoke(regs, operands)
+            }
+        }
+        in RiscVInstructions.typeJ -> {
+            instructionsTypeJ[instructionNameLowerCase]?.invoke(pc, regs, operands)
+        }
+        else -> {
+            throw Exception("UCmd: $instructionName")
+        }
     }
 }
