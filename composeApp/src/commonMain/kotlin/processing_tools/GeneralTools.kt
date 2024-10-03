@@ -124,7 +124,7 @@ fun processInstruction(instruction: String, memory: Memory, regs: Registers, pc:
 
     when (instructionName) {
         in RiscVInstructions.typeR -> {
-//            instructionsTypeR[instructionNameLowerCase]?.invoke(regs, operands)
+            instructionsTypeR[instructionNameLowerCase]?.invoke(regs, operands)
         }
         in RiscVInstructions.arithmeticTypeI -> {
             instructionsArithmeticTypeI[instructionNameLowerCase]?.invoke(regs, operands)
